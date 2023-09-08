@@ -158,14 +158,14 @@ function GangSpawner(k)
         local weapon = Randomizer(Config.NeighbourhoodGang[k]['PedWeapons'])
         local hash = HashGrabber(model)
         Gangspawns[k][i] = CreatePed(4, hash, spot.x, spot.y, spot.z-0.9, spot.w, true, true)
-        local spawn = GangAttributesRoamer(Gangspawns[k][i], armour, weapon, k, center, rad)
+        local spawn = GangAttributesRoamer(Gangspawns[k][i], armour, weapon, k, spot, rad)
         while not spawn do Wait(100) end
         CreateThread(function()
             while GetEntityHeightAboveGround(Gangspawns[k][i]) == 0 do Wait(100) end
             while Config.NeighbourhoodGang[k]['Active'] do 
                 if GetEntityHealth(Gangspawns[k][i]) <= 5 then
                     Gangspawns[k][i] = CreatePed(4, hash, spot.x, spot.y, spot.z, spot.w, true, true)
-                    GangAttributesRoamer(Gangspawns[k][i], armour, weapon, k, center, rad)
+                    GangAttributesRoamer(Gangspawns[k][i], armour, weapon, k, spot, rad)
                     SetPedArmour(Gangspawns[k][i], armour)
                     Wait(Config.NeighbourhoodGang[k]['RespawnTimer'])
                 end
